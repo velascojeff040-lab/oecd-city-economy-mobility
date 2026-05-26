@@ -1,327 +1,238 @@
-# Análisis de Movilidad Urbana y Economía en América Latina 🚗📊
+# Datos - Movilidad Urbana y Economía en América Latina
 
-**Proyecto:** Relación entre Congestión Vehicular y Productividad Económica en Ciudades Latinoamericanas (2024)
-
-**Autor:** Jefferson Velasco  
-**Repositorio:** [oecd-city-economy-mobility](https://github.com/velascojeff040-lab/oecd-city-economy-mobility)
+Esta carpeta contiene todos los archivos de datos utilizados en el análisis.
 
 ---
 
-## 📋 Descripción del Proyecto
-
-Este análisis examina la relación entre **movilidad urbana** (congestión vehicular, tiempos de viaje) y **productividad económica** (PIB per cápita) en 15 ciudades de América Latina durante 2024.
-
-### Pregunta Central
-¿Existe una relación significativa entre altos niveles de congestión vehicular y menores indicadores de productividad económica? ¿Qué ciudades son prioritarias para inversión en infraestructura de transporte?
-
-### Objetivo
-Proporcionar evidencia cuantitativa para decisiones de inversión en movilidad urbana y planificación de transporte público.
-
----
-
-## 📁 Estructura del Repositorio
+## 📁 Estructura
 
 ```
-oecd-city-economy-mobility/
-├── data/
-│   ├── raw/
-│   │   └── oecd_city_economy.csv          # Datos OECD (PIB, desempleo, población)
-│   ├── processed/
-│   │   └── ladb_mobility_economy_2024_clean.csv  # Dataset integrado y limpio
-│   └── README.md                           # Descripción de carpetas de datos
-├── notebooks/
-│   └── OECD_City_Economy_and_Mobility_Analysis (2).ipynb  # Análisis principal
-├── .gitignore
-├── README.md                               # Este archivo
-└── requirements.txt                        # Dependencias del proyecto
+data/
+├── raw/
+│   └── oecd_city_economy.csv          # Datos económicos OECD (original)
+├── processed/
+│   └── ladb_mobility_economy_2024_clean.csv  # Dataset integrado y limpio
+└── README.md                           # Este archivo
 ```
 
 ---
 
-## 📊 Datos Utilizados
+## 📊 Descripción de Archivos
 
-### Fuentes Primarias
+### `raw/oecd_city_economy.csv` ✅
 
-| Fuente | Cobertura | Variables | Ubicación |
-|--------|-----------|-----------|-----------|
-| **OECD Cities** | 15 ciudades, 7 países | PIB per cápita, Desempleo, PM2.5, Población | `data/raw/oecd_city_economy.csv` ✅ En GitHub |
-| **TomTom Traffic Index** | 15 ciudades (2024) | Congestión, Tiempos de viaje, Demoras, Índice de tráfico | [Google Drive Link](#-datos-de-tomtom-traffic) |
+**Estado:** Incluido en GitHub
 
-### Ciudades Analizadas
-- 🇦🇷 **Argentina:** Buenos Aires
-- 🇧🇷 **Brasil:** São Paulo, Rio de Janeiro, Brasília, Salvador, Belo Horizonte, Curitiba, Porto Alegre
-- 🇨🇴 **Colombia:** Bogotá
-- 🇵🇪 **Perú:** Lima
-- 🇨🇱 **Chile:** Santiago
-- 🇺🇾 **Uruguay:** Montevideo
+**Tamaño:** ~5 KB
+
+**Descripción:** Datos económicos de 15 ciudades latinoamericanas obtenidos de OECD Cities Programme
+
+**Estructura:**
+```
+Columnas: año, ciudad, país, pib_per_capita, desempleo, pm25, población
+Filas: 30 registros (15 ciudades × 2 años: 2023-2024)
+```
+
+**Ejemplo:**
+```
+año,ciudad,país,pib_per_capita,desempleo,pm25,población
+2024,Bogotá,Colombia,11442.50,10.5,25.3,11300000
+2024,Lima,Perú,9542.30,8.2,35.7,9500000
+```
+
+**Variables:**
+- `año`: Año del registro (2023, 2024)
+- `ciudad`: Nombre de la ciudad
+- `país`: País donde se ubica
+- `pib_per_capita`: PIB per cápita en USD
+- `desempleo`: Tasa de desempleo (%)
+- `pm25`: Contaminación PM2.5 (µg/m³)
+- `población`: Población urbana (habitantes)
+
+**Origen:** [OECD Cities Database](https://www.oecd.org/cfe/leed/cities/)
 
 ---
 
-## 🗂️ Datos de TomTom Traffic
+### `tomtom_traffic.csv` 📥
 
-⚠️ **Nota sobre el dataset de TomTom Traffic:**
+**Estado:** NO incluido en GitHub (muy pesado)
 
-El archivo `tomtom_traffic.csv` contiene datos de tráfico de **1,004,464 registros diarios** (aproximadamente **240 MB**). 
+**Tamaño:** ~140 MB
 
-### ❌ NO está en GitHub porque:
-- Excede límites de repositorio (GitHub: máx. 100 MB por archivo)
-- Sería ineficiente para clonar/actualizar el repo
-- Es un dataset "pesado" más apropiado para almacenamiento en la nube
+**Descripción:** Datos diarios de tráfico y congestión de 15 ciudades latinoamericanas en 2024
 
-### ✅ Archivo alojado en Google Drive:
+**Estructura:**
+```
+Columnas: país, ciudad, timestamp, traffic_index_live, avg_speed_relative, jams_delay
+Filas: 1,004,464 registros (datos diarios por ciudad)
+```
 
-🔗 **[Descargar tomtom_traffic.csv](https://drive.google.com/file/d/1GKKkybzladDfkA5O5YgitFVXvA5RHb-R/view?usp=drive_link)**
+**Ejemplo:**
+```
+país,ciudad,timestamp,traffic_index_live,avg_speed_relative,jams_delay
+Colombia,Bogotá,2024-01-15,37.6,42.3,1141.55
+Perú,Lima,2024-01-15,35.2,45.1,987.30
+```
 
-**Instrucciones para descargar:**
-1. Abre el [enlace de Google Drive](https://drive.google.com/file/d/1GKKkybzladDfkA5O5YgitFVXvA5RHb-R/view?usp=drive_link)
-2. Haz clic en el ícono de **descargar** (esquina superior derecha)
-3. Coloca el archivo en la **carpeta raíz** del proyecto
+**Variables:**
+- `país`: País de la ciudad
+- `ciudad`: Nombre de la ciudad
+- `timestamp`: Fecha y hora del registro
+- `traffic_index_live`: Índice de tráfico en vivo (0-100, donde 100 es congestión máxima)
+- `avg_speed_relative`: Velocidad promedio relativa (% de velocidad libre)
+- `jams_delay`: Demora acumulada en congestión (minutos)
 
-**Alternativa: Descarga automática en el notebook**
+**Descarga:**
+- 🔗 [Google Drive Link](https://drive.google.com/file/d/1GKKkybzladDfkA5O5YgitFVXvA5RHb-R/view?usp=drive_link)
+- Alternativa automática: El notebook descarga usando `gdown` si ejecutas la primera celda
 
-El notebook descargar el archivo automáticamente usando `gdown`:
+**Por qué no está en GitHub:**
+- Excede límite de GitHub (100 MB máx por archivo)
+- Es más eficiente almacenar en nube para grandes datasets
+- Reduce tamaño de clonación del repositorio
+
+**Origen:** [TomTom Traffic Index](https://www.tomtom.com/traffic-index/)
+
+---
+
+### `processed/ladb_mobility_economy_2024_clean.csv` 🔧
+
+**Estado:** Generado por el notebook (no en GitHub)
+
+**Tamaño:** ~2 KB
+
+**Descripción:** Dataset final integrado y limpio, resultado de combinar datos de OECD y TomTom
+
+**Estructura:**
+```
+Columnas: ciudad, país, año, pib_per_capita, desempleo, pm25, población, 
+          traffic_index_live, avg_speed_relative, jams_delay
+Filas: 15 registros (15 ciudades, solo 2024)
+```
+
+**Ejemplo:**
+```
+ciudad,país,año,pib_per_capita,desempleo,pm25,población,traffic_index_live,avg_speed_relative,jams_delay
+Bogotá,Colombia,2024,11442.50,10.5,25.3,11300000,37.6,42.3,1141.55
+Lima,Perú,2024,9542.30,8.2,35.7,9500000,35.2,45.1,987.30
+```
+
+**Cómo se genera:**
+1. Se carga `tomtom_traffic.csv` y se agrega por ciudad-año
+2. Se carga `oecd_city_economy.csv`
+3. Se realiza INNER JOIN por ciudad + país
+4. Se filtran solo registros de 2024
+5. Se exporta a CSV
+
+**Código (en el notebook):**
+```python
+# Agregación de tráfico
+traffic_city_year = traffic[traffic['year'] == 2024].groupby('city').agg({
+    'traffic_index_live': 'mean',
+    'avg_speed_relative': 'mean',
+    'jams_delay': 'mean'
+}).reset_index()
+
+# Merge con OECD
+merged = traffic_city_year.merge(
+    eco[eco['year'] == 2024],
+    on='city',
+    how='inner'
+)
+
+# Exportar
+merged.to_csv('data/processed/ladb_mobility_economy_2024_clean.csv', index=False)
+```
+
+**Uso:** Este es el archivo que usas para análisis estadístico, visualizaciones y conclusiones
+
+---
+
+## 🔄 Flujo de Datos
+
+```
+Google Drive                        Local Repository
+(tomtom_traffic.csv)               
+        ↓                          
+    gdown.download()               
+        ↓                          
+    /tomtom_traffic.csv            
+        ↓                          
+    ┌──────────────┐               
+    │   Notebook   │               
+    │ (limpieza)   │               
+    └──────────────┘               
+        ↓                          
+    data/raw/oecd_city_economy.csv   (desde GitHub)
+        ↓                          
+    ┌──────────────────┐           
+    │  Integración &   │           
+    │  Agregación      │           
+    └──────────────────┘           
+        ↓                          
+    data/processed/
+    ladb_mobility_economy_2024_clean.csv
+        ↓                          
+    Análisis Estadístico
+    Visualizaciones
+    Reportes
+```
+
+---
+
+## 📥 Cómo Obtener los Datos
+
+### Para `raw/oecd_city_economy.csv`
+✅ Ya está en el repositorio. No necesitas hacer nada.
+
+### Para `tomtom_traffic.csv`
+
+**Opción 1: Descarga manual**
+1. Ve a: https://drive.google.com/file/d/1GKKkybzladDfkA5O5YgitFVXvA5RHb-R/view?usp=drive_link
+2. Haz clic en "Descargar"
+3. Coloca el archivo en la **raíz del proyecto** (mismo nivel que `README.md`)
+
+**Opción 2: Descarga automática en el notebook**
 ```python
 import gdown
 
 file_id = "1GKKkybzladDfkA5O5YgitFVXvA5RHb-R"
 url = f"https://drive.google.com/uc?id={file_id}"
 gdown.download(url, 'tomtom_traffic.csv', quiet=False)
-traffic = pd.read_csv('tomtom_traffic.csv')
 ```
 
----
-
-## 🔧 Instalación y Configuración
-
-### Requisitos
-- Python 3.8+
-- pandas, numpy, matplotlib, seaborn
-- gdown (para descargar datos de Google Drive)
-
-### Pasos de Instalación
-
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/velascojeff040-lab/oecd-city-economy-mobility.git
-cd oecd-city-economy-mobility
-
-# 2. (Opcional) Crear entorno virtual
-python3 -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
-
-# 3. Instalar dependencias
-pip install -r requirements.txt
-
-# 4. Descargar datos de TomTom Traffic
-# Opción A: Descargar manualmente desde Google Drive (arriba)
-# Opción B: El notebook descarga automáticamente si gdown está instalado
-```
+### Para `processed/ladb_mobility_economy_2024_clean.csv`
+✅ Se genera automáticamente al ejecutar el notebook. No necesitas descargarlo.
 
 ---
 
-## 📈 Análisis Principal
+## 🔐 Acceso a los Datos
 
-### Notebook: `OECD_City_Economy_and_Mobility_Analysis (2).ipynb`
+**Licencias y Uso:**
+- **OECD:** Datos públicos con atribución requerida
+- **TomTom:** Datos públicos del Traffic Index
 
-El notebook contiene **9 secciones principales**:
-
-1. **Ingesta de Datos**
-   - Importación de librerías necesarias
-   - Descarga automática de `tomtom_traffic.csv` desde Google Drive
-   - Carga de `oecd_city_economy.csv`
-
-2. **Evaluación de Estructura y Calidad**
-   - Diagnóstico de tipos de datos
-   - Identificación de valores faltantes
-   - Análisis de completitud
-
-3. **Estandarización de Nomenclatura**
-   - Conversión a formato `snake_case`
-   - Normalización de nombres de columnas
-   - Consistencia de tipos de datos
-
-4. **Conversión de Tipos de Datos**
-   - Conversión de fechas a datetime
-   - Limpieza de valores numéricos
-   - Manejo de delimitadores locales
-
-5. **Extracción de Período Temporal**
-   - Extracción de año de timestamps
-   - Filtrado para 2024
-
-6. **Agregación de Indicadores de Movilidad**
-   - Agregación a nivel ciudad-año
-   - Cálculo de promedios de congestión, tiempos de viaje
-
-7. **Integración de Datos: Movilidad + Economía**
-   - INNER JOIN entre datasets de tráfico y OECD
-   - Dataset final unificado
-
-8. **Análisis Exploratorio Visual**
-   - Distribuciones de tráfico y PIB
-   - Comparativas entre ciudades
-   - Identificación de patrones
-
-9. **Exportación**
-   - Generación de `data/processed/ladb_mobility_economy_2024_clean.csv`
-   - Dataset listo para análisis estadístico
+Consulta los términos de uso de cada fuente antes de redistribuir los datos.
 
 ---
 
-## 🎯 Hallazgos Principales
+## ✅ Validación de Datos
 
-### Ciudad Prioritaria: Bogotá 🔴
-
-Bogotá se destaca como la ciudad con **mayor necesidad de inversión en movilidad**:
-
-| Indicador | Valor |
-|-----------|-------|
-| **Traffic Index** | ≈ 37.6 (muy alto) |
-| **Jams Delay (minutos)** | ≈ 1,141.55 |
-| **PIB per cápita (USD)** | ≈ $11,442 (moderado) |
-| **Población** | ≈ 11.3M |
-
-**Interpretación:** Alta congestión con productividad económica moderada sugiere que **mejoras en movilidad podrían generar impactos positivos significativos** en competitividad urbana.
-
-### Comparación Regional Estimada
-
-| Ciudad | Traffic Index | PIB per cápita | Prioridad |
-|--------|---------------|----------------|-----------|
-| Bogotá | 37.6 | $11,442 | 🔴 Crítico |
-| Lima | ~35 | $9,500+ | 🟠 Alto |
-| São Paulo | ~40 | ~$13,000 | 🟠 Alto |
-| Buenos Aires | ~25 | $18,117 | 🟢 Mejor |
-| Montevideo | ~18 | $21,111+ | 🟢 Óptimo |
+Al ejecutar el notebook, se generan validaciones automáticas:
+- Valores faltantes
+- Tipos de datos
+- Rangos de valores (ej: tráfico 0-100)
+- Completitud temporal (2024 completo)
 
 ---
 
-## 💡 Recomendaciones de Inversión
+## 📝 Notas
 
-### Para Bogotá (Prioridad 1)
-
-1. **Expansión de Metro:** Aumentar cobertura de transporte masivo
-2. **Infraestructura de Ciclorrutas:** Movilidad sostenible y alternativa
-3. **Gestión Inteligente de Tráfico:** Semáforos adaptativos, IoT urbano
-4. **Flexibilidad Laboral:** Teletrabajo y horarios escalonados
-5. **Integración Multimodal:** Conectividad BRT-Metro-Cicloruta-TransMilenio
-
-### Para Lima y São Paulo (Prioridad 2)
-
-- Mejora y ampliación de transporte público existente
-- Nuevas líneas de metro/BRT
-- Estacionamientos park-and-ride
-
-### Para Buenos Aires y Montevideo (Mantenimiento)
-
-- Modernización de sistemas existentes
-- Mantenimiento preventivo
-- Innovación en movilidad (e-scooters, bikesharing)
+- Los datos de 2023 están disponibles en `oecd_city_economy.csv` pero el análisis se enfoca en 2024
+- TomTom Traffic Index se actualiza diariamente; el archivo descargado es un snapshot de 2024
+- Los datos de PM2.5 son promedios anuales de OECD
+- El PIB per cápita está expresado en USD PPA (Paridad de Poder Adquisitivo)
 
 ---
 
-## 📊 Próximos Pasos (Análisis Adicional)
-
-- [ ] Análisis de correlación Pearson/Spearman entre congestión y PIB
-- [ ] Modelado predictivo (regresión lineal)
-- [ ] Análisis de elasticidad (% cambio en PIB por % reducción de congestión)
-- [ ] Expansión temporal (2023-2025)
-- [ ] Integración de costos de congestión (económicos, ambientales)
-- [ ] Proyecciones de impacto de inversión en movilidad
-
----
-
-## 📋 Dependencias
-
-Ver `requirements.txt`:
-
-```
-pandas>=1.3.0
-numpy>=1.20.0
-matplotlib>=3.3.0
-seaborn>=0.11.0
-gdown>=4.4.0
-jupyter>=1.0.0
-```
-
-Para instalar:
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 📝 Notas sobre los Archivos de Datos
-
-### `data/raw/oecd_city_economy.csv` ✅
-- **Incluido en GitHub:** Sí
-- **Tamaño:** ~5 KB (pequeño y manejable)
-- **Contenido:** Año, Ciudad, País, PIB per cápita, Desempleo, PM2.5, Población
-- **Registros:** 30 (15 ciudades × 2 años: 2023-2024)
-
-### `tomtom_traffic.csv` ❌
-- **Incluido en GitHub:** No (muy pesado)
-- **Tamaño:** ~240 MB
-- **Contenido:** País, Ciudad, Timestamp, Índice de tráfico, Tiempos de viaje, Demoras
-- **Registros:** 1,004,464 (datos diarios)
-- **Ubicación:** [Google Drive](https://drive.google.com/file/d/1GKKkybzladDfkA5O5YgitFVXvA5RHb-R/view?usp=drive_link)
-- **Razón de no incluirlo:** Límite de GitHub (100 MB/archivo), eficiencia de repo, almacenamiento en nube
-
-### `data/processed/ladb_mobility_economy_2024_clean.csv` ✅
-- **Generado por el notebook:** Sí (se crea al ejecutar)
-- **Tamaño:** ~2 KB
-- **Contenido:** Dataset final integrado y limpio
-- **Uso:** Análisis estadístico y visualizaciones
-- **Incluido en GitHub:** No (generado localmente)
-
----
-
-## 🔐 Acceso a Datos
-
-El notebook utiliza `gdown` para descargar automáticamente `tomtom_traffic.csv` desde Google Drive. 
-
-**No requiere autenticación** si el enlace es público.
-
-Si tienes problemas:
-1. Verifica que el [archivo sea accesible](https://drive.google.com/file/d/1GKKkybzladDfkA5O5YgitFVXvA5RHb-R/view?usp=drive_link)
-2. Descárgalo manualmente y colócalo en la raíz del proyecto
-3. Actualiza la ruta en el notebook si es necesario
-
----
-
-## 🤝 Contribuciones
-
-Este proyecto es académico/de investigación. Para sugerencias o mejoras:
-- Abre un **Issue** en GitHub
-- Propón cambios vía **Pull Request**
-
----
-
-## 📧 Contacto
-
-**Autor:** Jefferson Velasco  
-**GitHub:** [@velascojeff040-lab](https://github.com/velascojeff040-lab)
-
----
-
-## 📄 Licencia y Datos
-
-Este proyecto utiliza datos públicos:
-- **OECD:** Datos públicos con atribución
-- **TomTom Traffic Index:** Datos públicos disponibles
-
-Consulta los términos de uso de cada fuente antes de redistribuir.
-
----
-
-## 📚 Referencias
-
-- [OECD Cities Programme](https://www.oecd.org/cfe/leed/cities/)
-- [TomTom Traffic Index](https://www.tomtom.com/traffic-index/)
-- [Movilidad Urbana - CEPAL](https://www.cepal.org/)
-- [Congestión y Productividad - BID](https://www.iadb.org/)
-
----
-
-**Última actualización:** Mayo 2026  
-**Versión del notebook:** 2.0 (JSON validado ✅)  
-**Estado del proyecto:** Análisis principal completado
+**Última actualización:** Mayo 2026
